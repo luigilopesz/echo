@@ -4,7 +4,7 @@
 
 <h1 align="center">Echo Language</h1>
 <p align="center">
-  Uma linguagem desenvolvida por **Luigi Lopes** com propósito educacional.
+Uma linguagem desenvolvida por **Luigi Lopes** com propósito educacional.
 </p>
 
 
