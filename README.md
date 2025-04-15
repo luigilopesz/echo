@@ -78,7 +78,7 @@ obj pessoa << {
 | Aritméticos | `+`, `-`, `*`, `/`            |
 | Concatenação | `++`                          |
 | Relacionais | `==`, `!=`, `<`, `>`, `<=`, `>=` |
-| Booleanos   | `&&`, `||`, `!`               |
+| Booleanos   | `&&`, `\\`,`!`               |
 
 ---
 
