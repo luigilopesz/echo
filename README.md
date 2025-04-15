@@ -4,22 +4,9 @@
 
 <h1 align="center">Echo Language</h1>
 <p align="center">
-  Uma linguagem minimalista, tipada e moderna criada por <strong>Luigi Lopes</strong>.
+  Uma linguagem desenvolvida por **Luigi Lopes** com propósito educacional.
 </p>
 
----
-
-## ✨ Visão Geral
-
-**Echo** é uma linguagem de programação autoral com foco em:
-
-- Sintaxe limpa
-- Blocos visuais com `<<` e `>>`
-- Tipagem explícita e simples
-- Escopos isolados com `bubble`
-- Funções com `echo`
-- Controle visual de fluxo com `otif` e `other`
-- Blocos e objetos diferenciados por contexto no parser
 
 ---
 
@@ -140,12 +127,6 @@ lista            = "[" , [ expressao , { "," , expressao } ] , "]" ;
 
 ## 👨‍💻 Autor
 
-Desenvolvida por **Luigi Lopes** com propósito educacional, artístico e como experimento de linguagem visual e sintática.
+Desenvolvida por **Luigi Lopes** com propósito educacional.
 
 ---
-
-## 🖼️ Logo
-
-A logo foi criada com base em um estilo limpo e geométrico, com as letras **E-C-H-O** integradas em um círculo branco.
-
-> Para usá-la no seu repositório, renomeie o arquivo da logo como `logo_echo.png` e adicione-o ao seu projeto.
