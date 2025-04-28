@@ -16,6 +16,9 @@ Uma linguagem desenvolvida por Luigi Lopes com propósito educacional.
 txt nome << get;
 num idade << 27;
 
+list nomes << [];
+list numeros << [1, 20, 5, -3];
+
 echo bool maior(num idade) {
    if << idade > 18 {
       >> true;
@@ -62,7 +65,9 @@ obj pessoa << {
 - **`echo`**: definição de função  
 - **`>>`**: retorno de função  
 - **`show << ...;`**: imprimir algo  
-- **`get`**: ler input do usuário  
+- **`get`**: ler input do usuário
+- **`obj nome << { ... }`**: objeto
+- **`list nome << [ ... ]`**: lista
 - **`if << condicao { ... }`**: condicional  
 - **`otif << ...`**, **`other`**: encadeamento  
 - **`loop << item : lista { ... }`**: iteração  
