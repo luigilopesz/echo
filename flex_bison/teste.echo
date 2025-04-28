@@ -1,0 +1,58 @@
+// Teste mais completo para a linguagem Echo
+
+num contador << 0;
+txt saudacao << "Bem-vindo";
+list nomes << ["Echo", "Teste", "Final"];
+bool processar << true;
+
+// Definição de função
+echo num adiciona(num a, num b) {
+    num resultado << a + b;
+    >> resultado; // Retorno
+}
+
+// Chamada de função e reatribuição
+contador << adiciona(contador, 5); // contador = 5
+
+// Condicional complexa
+if << contador == 5 && processar {
+    show << saudacao ++ " ao Teste Complexo!"; // Concatenação
+    contador << contador + 1;
+
+    // Loop 'times'
+    loop << 3 times {
+        num i << contador; // Declaração dentro do loop
+        show << "Loop Cnt: " ++ i;
+        contador << i + 1;
+    }
+
+} otif << contador > 10 {
+    show << "Contador maior que 10 (não deve acontecer)";
+} other {
+    show << "Condição inicial não foi atendida (não deve acontecer)";
+}
+
+// Loop for-each
+show << "Nomes na lista:";
+loop << nome : nomes {
+    show << " - " ++ nome;
+}
+
+// Objeto
+obj config << {
+    txt versao << "1.0";
+    bool ativo << true;
+    num limite << 100;
+};
+
+// Acessando (sintaxe - parser atual não avalia)
+// show << config.versao; // Parser atual pode ter problemas com '.' dependendo da precedência
+
+// Bubble scope
+bubble {
+    num temp_local << 99;
+    show << "Dentro do bubble:" ++ temp_local;
+}
+
+// Final show
+show << "Contador final:" ++ contador; // Deve ser 5 + 1 + 3 = 9
