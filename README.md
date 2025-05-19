@@ -15,10 +15,6 @@ Uma linguagem desenvolvida por Luigi Lopes com propósito educacional.
 ```echo
 // Exemplo de comentário de linha única
 
-/*
-  Exemplo de comentário
-  de múltiplas linhas (opcional, se suportado)
-*/
 
 // Leitura de input e declaração
 txt nome << get;
