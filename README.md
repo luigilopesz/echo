@@ -13,64 +13,109 @@ Uma linguagem desenvolvida por Luigi Lopes com propósito educacional.
 ## 🚀 Exemplo de Código
 
 ```echo
-// Exemplo de comentário de linha única
+// Echo Test Sample - No Chained Assignments
 
+show << "--- Variable Declarations and Assignments ---";
 
-// Leitura de input e declaração
-txt nome << get;
-num idade << 27;
+txt message << "Hello from Echo!";
+show << message;
 
-// Declaração de lista e objeto
-list nomes << ["Luigi", "Abate", "Marcelo"];
-obj pessoa << {
-   txt nome << "Visitante";
-   num idade << 0;
-   bool ativo << false;
+num count << 10;
+show << "Initial count: " ++ count;
+
+bool isReady << true;
+show << "Is ready: " ++ isReady;
+
+num anotherNumber << count + 5; // Assignment with an expression
+show << "Another number: " ++ anotherNumber;
+
+// Reassignments
+message << "Updated message.";
+show << message;
+
+count << anotherNumber - count;
+show << "Updated count: " ++ count;
+
+isReady << false;
+show << "Is ready now: " ++ isReady;
+
+show << "\n--- List and Object Assignments ---";
+
+list items << [1, "two", true];
+show << "Items list: " ++ items;
+
+obj details << {
+  txt id << "item001";
+  num value << 100;
 };
+show << "Details object: " ++ details;
 
-// Atribuição e acesso a membros/índices (Sintaxe Exemplo!)
-pessoa.nome << nome; // Acessando membro de obj
-pessoa.idade << idade + 1;
-show << "Primeiro nome na lista: " ++ nomes[0]; // Acessando índice de list e concatenação
+// Accessing and reassigning list/object members
+items[1] << "zwei"; // Reassign list element
+show << "Updated items list: " ++ items;
 
-// Definição de função
-echo bool maior(num idade) {
-   if << idade >= 18 {
-      >> true;
-   } other {
-      >> false;
-   }
+details.value << details.value + 50; // Reassign object member
+show << "Updated details object: " ++ details;
+
+
+show << "\n--- Function Example with Assignments ---";
+
+echo num calculate(num a, num b) {
+  num intermediateResult << a * 2;
+  
+  num finalResult << intermediateResult + b;
+  >> finalResult;
 }
 
-// Condicional e chamada de função
-if << maior(pessoa.idade) {
-   show << pessoa.nome ++ " é maior de idade.";
-} other {
-   show << pessoa.nome ++ " é menor de idade.";
-}
+num calcOutput << calculate(count, 5);
+show << "Calculation output: " ++ calcOutput;
 
-// Loop 'times'
-loop << 3 times {
-  show << "Loop simples";
-}
 
-// Loop 'for-each'
-loop << n : nomes {
-  show << "Nome: " ++ n;
-}
+show << "\n--- User Input ---";
 
-// Escopo isolado
-bubble {
-   txt temp << "isolado";
-   show << temp; // 'temp' só existe aqui
-}
+show << "\n Qual seu nome? ";
+txt nome << get;
+show << "\n Qual sua idade? ";
+txt idade << get;
 
-// Tratamento de erro (básico)
-try {
-  num resultado << 10 / 0; // Potencial erro
-} oops {
-  show << "Opa! Algo deu errado.";
-}
+show << "\n Bem vindo, " ++ nome ++ "! você tem: " ++ idade ++ " anos"; 
+
+show << "\n--- End of Sample ---";
+
+```
+
+## 🚀 Output do Exemplo
+
+```
+--- Variable Declarations and Assignments ---
+Hello from Echo!
+Initial count: 10
+Is ready: true
+Another number: 15
+Updated message.
+Updated count: 5
+Is ready now: false
+
+--- List and Object Assignments ---
+Items list: [1, two, true]
+Details object: {id: item001; value: 100}
+Updated items list: [1, zwei, true]
+Updated details object: {id: item001; value: 150}
+
+--- Function Example with Assignments ---
+Calculation output: 15
+
+--- User Input ---
+
+ Qual seu nome?
+luigi
+
+ Qual sua idade?
+21
+
+ Bem vindo, luigi! você tem: 21 anos
+
+--- End of Sample ---
 ```
 
 ---
