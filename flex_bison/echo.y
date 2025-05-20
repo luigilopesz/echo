@@ -1,25 +1,23 @@
-/* echo.y - Analisador Sintático para Echo (v2 - Saída com Depuração printf) */
+/* echo.y */
 %{
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Protótipos
+
 extern int yylex();
 extern char *yytext;
 extern int yylineno;
 void yyerror(const char *s);
 
-// TODO: Incluir aqui declarações de estruturas de dados (tabela de símbolos, AST) se necessário.
 
 %}
 
-/* Definição da Union para yylval (tipos dos valores associados aos tokens/não-terminais) */
+
 %union {
-    double dval; // Para números e resultados de expressões numéricas
-    char  *sval; // Para identificadores e literais de texto
-    int    bval; // Para literais booleanos e resultados de expressões lógicas
-    // Ex: struct AST_Node *node; // Se construir uma AST
+    double dval;
+    char  *sval; 
+    int    bval; 
 }
 
 /* Declaração dos Tokens (vindos do Flex) */
@@ -49,14 +47,14 @@ void yyerror(const char *s);
 %right T_NOT '!'               /* Negação unária (!) */
 %left '.' '[' ']'              /* Acesso a membro e índice (colocando ']' aqui ajuda a resolver shift/reduce com arrays) */
 %left '(' ')'                  /* Chamada de função e parênteses */
-/* Definir uma precedência para '-' unário se necessário (ex: %pre UMINUS) */
+
 
 
 /* Tipos para Não-Terminais (se eles retornarem valores via $$) */
 %type <dval> expressao literal_num // Assumindo expressão retorna double por padrão (simplificado)
-%type <sval> tipo_nome literal_txt // tipo_nome precisa retornar sval por causa do strdup
+%type <sval> tipo_nome literal_txt 
 %type <bval> literal_bool
-%type <dval> acesso_membro     // Mantendo tipos para evitar erros de $$
+%type <dval> acesso_membro     
 %type <dval> acesso_indice
 %type <dval> chamada_funcao
 %type <dval> lista_literal
@@ -84,57 +82,40 @@ declaracao:
     | repeticao
     | escopo_isolado
     | excecao
-    | atribuicao ';'        { printf("-> Atribuição inicial finalizada.\n"); }
-    | reatribuicao ';'      { printf("-> Reatribuição finalizada.\n"); }
+    | atribuicao ';'
+    | reatribuicao ';'      
     | comando_show ';'
     | comando_retorno ';'
-    | expressao ';'         { printf("-> Expressão (ex: chamada func) como declaração finalizada.\n"); }
-    // | bloco             // Um bloco solto é uma declaração válida? Depende da semântica.
-    | ';'                   { printf("-> Declaração vazia.\n"); } /* Declaração vazia */
+    | expressao ';' 
+    // | bloco             
+    | ';'                  
     ;
 
 /* Definição de tipo (retorna o nome como string para uso posterior) */
-tipo_nome: T_TYPE_TXT   { $$ = strdup("txt"); } /* Usar strdup para poder liberar depois */
-         | T_TYPE_NUM   { $$ = strdup("num"); }
-         | T_TYPE_BOOL  { $$ = strdup("bool"); }
-         | T_TYPE_OBJ   { $$ = strdup("obj"); }
-         | T_TYPE_LIST  { $$ = strdup("list"); }
-         | T_TYPE_SILENT{ $$ = strdup("silent"); }
+tipo_nome: T_TYPE_TXT  /
+         | T_TYPE_NUM   
+         | T_TYPE_BOOL  
+         | T_TYPE_OBJ   
+         | T_TYPE_LIST  
+         | T_TYPE_SILENT
          ;
 
 /* Atribuição com declaração de tipo */
 atribuicao:
       tipo_nome T_IDENTIFIER T_ASSIGN expressao
-        // Ação semântica exemplo:
-        {
-            printf("-> Atribuição Inicial: Tipo=%s, ID=%s\n", $1, $2);
-            // Lembre-se de liberar a memória dos strings quando não forem mais necessários!
-            free($1); // Libera memória do nome do tipo
-            free($2); // Libera memória do identificador
-        }
     ;
 
 /* Reatribuição (sem tipo) */
 reatribuicao:
       T_IDENTIFIER T_ASSIGN expressao
-        {
-            printf("-> Reatribuição: ID=%s\n", $1);
-            free($1); // Libera memória do identificador
-        }
     ;
 
 /* Definição de Função */
 definicao_funcao:
       T_ECHO tipo_nome T_IDENTIFIER '(' parametros_opt ')' bloco
-        {
-            printf("-> Definição Função: Tipo Retorno=%s, Nome=%s\n", $2, $3);
-            free($2);
-            free($3);
-        }
     ;
 
 parametros_opt:
-      /* vazio */
     | parametros
     ;
 
@@ -145,57 +126,41 @@ parametros:
 
 parametro:
       tipo_nome T_IDENTIFIER
-        {
-            printf("--> Parâmetro: Tipo=%s, Nome=%s\n", $1, $2);
-            free($1);
-            free($2);
-        }
     ;
 
 /* Retorno de Função */
 comando_retorno:
       T_RETURN expressao
-        { printf("-> Retorno de função\n"); }
     ;
 
 /* Condicional If-Otif-Other */
 condicional:
       T_IF T_ASSIGN expressao bloco lista_otif other_opt
-        { printf("-> Estrutura IF completa\n"); }
     ;
 
 lista_otif:
       /* vazio */
     | lista_otif T_OTIF T_ASSIGN expressao bloco
-        { printf("--> Bloco OTIF\n"); }
     ;
 
 other_opt:
       /* vazio */
     | T_OTHER bloco
-        { printf("--> Bloco OTHER\n"); }
     ;
 
 /* Repetição Loop */
 repeticao:
       T_LOOP T_ASSIGN loop_especificador bloco
-        { printf("-> Estrutura LOOP\n"); }
     ;
 
 loop_especificador:
-      T_IDENTIFIER ':' expressao  /* loop << item : lista_expr */
-        {
-            printf("--> Loop For-Each: var=%s\n", $1);
-            free($1); // Libera var 'item'
-        }
-    | expressao T_TIMES            /* loop << count_expr times */
-        { printf("--> Loop Times\n"); }
+      T_IDENTIFIER ':' expressao  
+    | expressao T_TIMES           
     ;
 
 /* Comando Show */
 comando_show:
       T_SHOW T_ASSIGN expressao
-        { printf("-> Comando SHOW (Valor expr simplificado: %f)\n", $3); /* $3 é o valor double da expressao */ }
     ;
 
 /* Tratamento de Exceção */

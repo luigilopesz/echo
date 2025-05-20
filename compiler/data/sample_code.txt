@@ -1,0 +1,68 @@
+// Echo Test Sample - No Chained Assignments
+
+show << "--- Variable Declarations and Assignments ---";
+
+txt message << "Hello from Echo!";
+show << message;
+
+num count << 10;
+show << "Initial count: " ++ count;
+
+bool isReady << true;
+show << "Is ready: " ++ isReady;
+
+num anotherNumber << count + 5; // Assignment with an expression
+show << "Another number: " ++ anotherNumber;
+
+// Reassignments
+message << "Updated message.";
+show << message;
+
+count << anotherNumber - count;
+show << "Updated count: " ++ count;
+
+isReady << false;
+show << "Is ready now: " ++ isReady;
+
+show << "\n--- List and Object Assignments ---";
+
+list items << [1, "two", true];
+show << "Items list: " ++ items;
+
+obj details << {
+  txt id << "item001";
+  num value << 100;
+};
+show << "Details object: " ++ details;
+
+// Accessing and reassigning list/object members
+items[1] << "zwei"; // Reassign list element
+show << "Updated items list: " ++ items;
+
+details.value << details.value + 50; // Reassign object member
+show << "Updated details object: " ++ details;
+
+
+show << "\n--- Function Example with Assignments ---";
+
+echo num calculate(num a, num b) {
+  num intermediateResult << a * 2;
+  
+  num finalResult << intermediateResult + b;
+  >> finalResult;
+}
+
+num calcOutput << calculate(count, 5);
+show << "Calculation output: " ++ calcOutput;
+
+
+show << "\n--- User Input ---";
+
+show << "\n Qual seu nome? ";
+txt nome << get;
+show << "\n Qual sua idade? ";
+txt idade << get;
+
+show << "\n Bem vindo, " ++ nome ++ "! você tem: " ++ idade ++ " anos"; 
+
+show << "\n--- End of Sample ---";
