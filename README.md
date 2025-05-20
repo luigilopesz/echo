@@ -176,20 +176,12 @@ As seguintes palavras são reservadas e não podem ser usadas como identificador
 
 ---
 
-## ✍️ Comentários
+## ✍️ Comentário
 
 * **Linha Única:** Começam com `//` e vão até o final da linha.
     ```echo
     // Isto é um comentário
     num x << 10; // Comentário após o código
-    ```
-* **Múltiplas Linhas:** (Opcional - Definir se suportado) Começam com `/*` e terminam com `*/`.
-    ```echo
-    /*
-     Isto é um
-     comentário de múltiplas
-     linhas.
-    */
     ```
 
 ---
