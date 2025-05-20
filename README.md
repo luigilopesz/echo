@@ -13,7 +13,7 @@ Uma linguagem desenvolvida por Luigi Lopes com propósito educacional.
 ## 🚀 Exemplo de Código
 
 ```echo
-// Echo Test Sample - No Chained Assignments
+// Echo Test Sample
 
 show << "--- Variable Declarations and Assignments ---";
 
